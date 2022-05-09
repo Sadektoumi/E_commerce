@@ -26,7 +26,7 @@ class InterventionController extends Controller
         $intervention->name =$request['name'];
         $intervention->type=$request['type'];
         $intervention->maintenance=$request['maintenance'];
-        $intervention->prix='0';
+        $intervention->prix='#';
         $intervention->etat='en cours';
         $intervention->user_id= $request->user()->id;
         $save = $intervention->save();
@@ -34,7 +34,7 @@ class InterventionController extends Controller
         if($save){
             return response()->json([
                 'success'=>true,
-                'message'=>'successfully created'
+                'message'=>'intervention successfully created'
             ],201);
         }else{
          return response()->json([
@@ -61,4 +61,39 @@ public function interventionsList (Request $request){
     ],201);
 
 }
+
+
+public function deleteIntervention(Request $request, $id)
+  {
+     $intervention= intervention::find($id);
+      $delete = $intervention->delete();
+      if ($delete){
+      return  response()->json([
+      'success' => true ,
+      'message' => 'intervention deleted!'
+
+  ],201);
+  }else{
+      return response()->json([
+          'success' => false,
+          'message' => 'Something went wrong!'
+      ], 500);
+  }
+
+
+}
+
+public function index(){
+
+    $interventions =intervention::all();
+    return view ('interventions.index' , ['interventions' => $interventions]);
+}
+
+public function update(Request $request){
+    $interventions =intervention::where('id' , $request->id)->update(['etat' => $request->etat]);
+    return back();
+
+}
+
+
 }

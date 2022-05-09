@@ -13,23 +13,23 @@ use Illuminate\Support\Str;
 class registerController extends Controller
 {
     public function Register (Request $request) {
-        $validator = Validator::make($request->all(), [
-            'nom' => 'required|string|max:255',
-            'prenom' => 'required|string|max:255',
-            'pseudo' => 'required|string|max:255',
-            'cin' => 'required|string|max:255',
-            'codePostal' => 'required|string|max:255',
+         $validator = Validator::make($request->all(), [
+             'nom' => 'required|string|max:255',
+             'prenom' => 'required|string|max:255',
+             'pseudo' => 'required|string|max:255',
+             'cin' => 'required|string|max:255',
+             'codePostal' => 'required|string|max:255',
             'sexe' => 'required|string|max:255',
 
-            'telephone' => 'required|string|max:255',
-            'adresse' => 'required|string|max:255',
-            'email' => 'required|string|email|max:255|unique:users',
-            'password' => 'required|string|min:6',
-        ]);
-        if ($validator->fails())
-        {
-            return response(['errors'=>$validator->errors()->all()], 400);
-        }
+             'telephone' => 'required|string|max:255',
+             'adresse' => 'required|string|max:255',
+             'email' => 'required|string|email|max:255|unique:users',
+             'password' => 'required|string|min:6',
+         ]);
+         if ($validator->fails())
+         {
+             return response(['errors'=>$validator->errors()->all()], 400);
+         }
 
         $user = New User() ;
         $user->id = Str::uuid();

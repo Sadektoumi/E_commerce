@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Session;
 
 class loginController extends Controller
 {
@@ -37,9 +38,24 @@ class loginController extends Controller
         $token = $user->createToken('auth_token')->plainTextToken;
 
         return response()->json([
-                    'message'=>'user connected', $user,
+                    'message'=>'Connected', $user,
                    'access_token' => $token,
         ]);
     }
+public function logout(Request $request){
+ $s=$request->user()->tokens();
+ $s->delete();
+
+
+
+ return response()->json([
+     'message'=>$s,
+     'message' => 'logged out sccuessfuly'
+ ]);
+
+}
+
+
+
 
 }

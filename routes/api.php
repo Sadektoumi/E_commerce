@@ -14,13 +14,20 @@ Route::PUT('/UpdateProduit/{id}',[ProduitController::class,'UpdateProduit']);
 Route::delete('/DeleteProduit/{id}',[ProduitController::class,'DeleteProduit']);
 Route::GET('/afficherProduits',[ProduitController::class,'index']);
 
+    Route::POST('/logout' , [loginController::class ,'Login']);
+
+
 
 
 Route::group(['middleware' => ['auth:sanctum']] , function() {
     Route::POST('/interventionPost' , [interventionController::class ,'createIntervention']);
     Route::GET('/interventionList' , [interventionController::class ,'interventionsList']);
+    Route::DELETE('/interventiondelete/{id}' , [interventionController::class ,'deleteIntervention']);
     Route::GET('/getproduct' , [CommandeController::class ,'Getproducts']);
-    Route::POST('/commandePost' , [CommandeController::class ,'CommandePost']);
+    Route::POST('/CommandePost' , [CommandeController::class ,'CommandePost']);
+    Route::POST('/logout' , [loginController::class ,'logout']);
+
+
 
 
 });
